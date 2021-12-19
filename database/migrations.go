@@ -14,4 +14,7 @@ var (
 func InitialMigration() {
 	db.Migrator().DropTable(&models.Client{})
 	db.Migrator().CreateTable(&models.Client{})
+
+	db.Migrator().DropTable(&models.Auth{})
+	db.Migrator().CreateTable(&models.Auth{})
 }

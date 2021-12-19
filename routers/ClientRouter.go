@@ -1,20 +1,17 @@
 package routers
 
 import (
-	"personal/app/configs"
 	"personal/app/controllers"
+	"personal/app/middlewares"
 	"personal/app/repositories"
 	"personal/app/services"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 // var db *gorm.DB
 
 var (
-	db *gorm.DB = configs.SetupDatabaseConnection()
-
 	clientRepository repositories.ClientRepository = repositories.NewClientRepository(db)
 
 	clientService services.ClientService = services.NewClientService(clientRepository)
@@ -26,6 +23,7 @@ func ClientRoute(route *gin.Engine) {
 
 	clientRoutes := route.Group("api/v1/client")
 	{
+		clientRoutes.Use(middlewares.JwtAuthMiddleware())
 		clientRoutes.GET("/", clientController.All)
 		clientRoutes.POST("/", clientController.Insert)
 		clientRoutes.GET("/:id", clientController.FindByID)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"personal/app/configs"
 	"personal/app/handlers"
 	"personal/routers"
@@ -17,7 +18,9 @@ func main() {
 	r := gin.New()
 	r.Use(configs.CORSMiddleware())
 
-	routers.ClientRoute(r) //Added all product routes
+	routers.ClientRoute(r)  //Added all client routes
+	routers.AuthRoute(r)    //Added all auth routes
+	routers.ProfileRoute(r) //Added all profile routes
 
-	r.Run()
+	r.Run(":" + os.Getenv("APP_PORT"))
 }
