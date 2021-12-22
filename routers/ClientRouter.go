@@ -9,8 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// var db *gorm.DB
-
 var (
 	clientRepository repositories.ClientRepository = repositories.NewClientRepository(db)
 
