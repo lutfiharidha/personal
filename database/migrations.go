@@ -26,4 +26,7 @@ func InitialMigration() {
 
 	db.Migrator().DropTable(&models.Skill{})
 	db.Migrator().CreateTable(&models.Skill{})
+
+	db.Migrator().DropTable(&models.Content{})
+	db.Migrator().CreateTable(&models.Content{})
 }
