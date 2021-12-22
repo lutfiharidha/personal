@@ -3,10 +3,10 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"personal/app/configs"
 	"personal/app/helpers"
 	"personal/app/models"
 	"personal/app/services"
+	"personal/configs"
 
 	"github.com/gin-gonic/gin"
 )

@@ -31,22 +31,22 @@ func NewClientService(clientRepo repositories.ClientRepository) ClientService {
 }
 
 func (service *clientService) Insert(client dtos.ClientCreateDTO) models.Client {
-	clientuct := models.Client{}
-	err := smapping.FillStruct(&clientuct, smapping.MapFields(&client))
+	newClient := models.Client{}
+	err := smapping.FillStruct(&newClient, smapping.MapFields(&client))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res := service.clientRepository.InsertClient(clientuct)
+	res := service.clientRepository.InsertClient(newClient)
 	return res
 }
 
 func (service *clientService) Update(client dtos.ClientUpdateDTO) models.Client {
-	clientuct := models.Client{}
-	err := smapping.FillStruct(&clientuct, smapping.MapFields(&client))
+	newClient := models.Client{}
+	err := smapping.FillStruct(&newClient, smapping.MapFields(&client))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res := service.clientRepository.UpdateClient(clientuct)
+	res := service.clientRepository.UpdateClient(newClient)
 	return res
 }
 
@@ -58,8 +58,8 @@ func (service *clientService) All() []models.Client {
 	return service.clientRepository.AllClient()
 }
 
-func (service *clientService) FindByID(clientuctID string) models.Client {
-	return service.clientRepository.FindClientByID(clientuctID)
+func (service *clientService) FindByID(clientID string) models.Client {
+	return service.clientRepository.FindClientByID(clientID)
 }
 
 func (service *clientService) Deleted() []models.Client {
@@ -67,12 +67,12 @@ func (service *clientService) Deleted() []models.Client {
 }
 
 func (service *clientService) Restore(client dtos.ClientRestoreDTO) models.Client {
-	clientuct := models.Client{}
-	err := smapping.FillStruct(&clientuct, smapping.MapFields(&client))
+	newClient := models.Client{}
+	err := smapping.FillStruct(&newClient, smapping.MapFields(&client))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res := service.clientRepository.RestoreClient(clientuct)
+	res := service.clientRepository.RestoreClient(newClient)
 	return res
 }
 

@@ -2,7 +2,7 @@ package middlewares
 
 import (
 	"net/http"
-	"personal/app/configs"
+	"personal/configs"
 
 	"github.com/gin-gonic/gin"
 )

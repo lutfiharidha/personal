@@ -51,10 +51,13 @@ func (c *clientController) FindByID(context *gin.Context) {
 
 func (c *clientController) Insert(context *gin.Context) {
 	var clientCreateDTO dtos.ClientCreateDTO
-	imageName := helpers.FileUpload(context, "public/")
+	imageName := helpers.FileUpload(context, "public/client/")
 	clientCreateDTO.ClientImage = imageName
-	context.ShouldBind(&clientCreateDTO)
-
+	errDTO := context.ShouldBind(&clientCreateDTO)
+	if errDTO != nil {
+		res := helpers.BuildErrorResponse("Failed to process request", errDTO.Error(), helpers.EmptyObj{})
+		context.JSON(http.StatusBadRequest, res)
+	}
 	result := c.clientService.Insert(clientCreateDTO)
 	response := helpers.BuildResponse(true, "OK", result)
 	context.JSON(http.StatusCreated, response)
@@ -62,7 +65,11 @@ func (c *clientController) Insert(context *gin.Context) {
 
 func (c *clientController) Update(context *gin.Context) {
 	var clientUpdateDTO dtos.ClientUpdateDTO
-	context.ShouldBind(&clientUpdateDTO)
+	errDTO := context.ShouldBind(&clientUpdateDTO)
+	if errDTO != nil {
+		res := helpers.BuildErrorResponse("Failed to process request", errDTO.Error(), helpers.EmptyObj{})
+		context.JSON(http.StatusBadRequest, res)
+	}
 	id := context.Param("id")
 	var client models.Client = c.clientService.FindByID(id)
 	if (client == models.Client{}) {
@@ -70,7 +77,7 @@ func (c *clientController) Update(context *gin.Context) {
 		context.JSON(http.StatusNotFound, res)
 	} else {
 		if context.Param("image") != "" {
-			imageName := helpers.FileUpload(context, "public/")
+			imageName := helpers.FileUpload(context, "public/client/")
 			clientUpdateDTO.ClientImage = imageName
 		} else {
 			clientUpdateDTO.ClientImage = client.ClientImage

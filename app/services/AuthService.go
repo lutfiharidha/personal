@@ -25,23 +25,23 @@ func NewAuthService(authRepo repositories.AuthRepository) AuthService {
 }
 
 func (service *authService) Register(auth dtos.AuthCreateDTO) models.Auth {
-	authuct := models.Auth{}
-	err := smapping.FillStruct(&authuct, smapping.MapFields(&auth))
+	newAuth := models.Auth{}
+	err := smapping.FillStruct(&newAuth, smapping.MapFields(&auth))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res := service.authRepository.RegisterAuth(authuct)
+	res := service.authRepository.RegisterAuth(newAuth)
 	return res
 }
 
 func (service *authService) Login(auth dtos.AuthLoginDTO) string {
 
-	authuct := models.Auth{}
-	err := smapping.FillStruct(&authuct, smapping.MapFields(&auth))
+	newAuth := models.Auth{}
+	err := smapping.FillStruct(&newAuth, smapping.MapFields(&auth))
 	if err != nil {
 		log.Fatalf("Failed map %v: ", err)
 	}
-	res, _ := service.authRepository.LoginCheck(authuct.Email, authuct.Password)
+	res, _ := service.authRepository.LoginCheck(newAuth.Email, newAuth.Password)
 	if err != nil {
 		return ""
 	}

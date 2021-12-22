@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"fmt"
-	"personal/app/configs"
 	"personal/app/models"
+	"personal/configs"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

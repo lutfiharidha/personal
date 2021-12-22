@@ -1,20 +1,44 @@
+FILENAME := $(filter-out $@,$(MAKECMDGOALS))
+
 build: 
-	go build -o server main.go
+	@go build -o server main.go
 
 run: build
-	./server
+	@./server
 
 watch:
-	ulimit -n 10000
-	go run main.go
-	reflex -s -r '\.go$$' make run
+	@go run main.go
 
 migrate:
-	ulimit -n 10000
-	go run main.go migrate
-	reflex -s -r '\.go$$' make run
+	@go run app/configs/command/main.go migrate
 
 migrate-seed:
-	ulimit -n 10000
-	go run main.go migrate-seed
-	reflex -s -r '\.go$$' make run
+	@go run app/configs/command/main.go migrate-seed
+
+model:
+	@mkdir -p app/models
+	@go run app/configs/command/main.go $(FILENAME)
+
+controller:
+	@mkdir -p app/controllers
+	@go run app/configs/command/main.go $(FILENAME)
+
+service:
+	@mkdir -p app/service
+	@go run app/configs/command/main.go $(FILENAME)
+
+repository:
+	@mkdir -p app/repositories
+	@go run app/configs/command/main.go $(FILENAME)
+
+dto:
+	@mkdir -p app/dtos
+	@go run app/configs/command/main.go $(FILENAME)
+
+all:
+	@mkdir -p app/models
+	@mkdir -p app/dtos
+	@mkdir -p app/repositories
+	@mkdir -p app/services
+	@mkdir -p app/controllers
+	@go run app/configs/command/main.go $(FILENAME)

@@ -1,16 +1,14 @@
 package routers
 
 import (
-	"personal/app/configs"
 	"personal/app/controllers"
 	"personal/app/repositories"
 	"personal/app/services"
+	"personal/configs"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
-
-// var db *gorm.DB
 
 var (
 	db *gorm.DB = configs.SetupDatabaseConnection()

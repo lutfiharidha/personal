@@ -1,8 +1,8 @@
 package database
 
 import (
-	"personal/app/configs"
 	"personal/app/models"
+	"personal/configs"
 
 	"gorm.io/gorm"
 )
@@ -17,4 +17,13 @@ func InitialMigration() {
 
 	db.Migrator().DropTable(&models.Auth{})
 	db.Migrator().CreateTable(&models.Auth{})
+
+	db.Migrator().DropTable(&models.Contact{})
+	db.Migrator().CreateTable(&models.Contact{})
+
+	db.Migrator().DropTable(&models.Portfolio{})
+	db.Migrator().CreateTable(&models.Portfolio{})
+
+	db.Migrator().DropTable(&models.Skill{})
+	db.Migrator().CreateTable(&models.Skill{})
 }
