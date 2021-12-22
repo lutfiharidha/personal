@@ -10,30 +10,30 @@ watch:
 	@go run main.go
 
 migrate:
-	@go run app/configs/command/main.go migrate
+	@go run configs/command/main.go migrate
 
 migrate-seed:
-	@go run app/configs/command/main.go migrate-seed
+	@go run configs/command/main.go migrate-seed
 
 model:
 	@mkdir -p app/models
-	@go run app/configs/command/main.go $(FILENAME)
+	@go run configs/command/main.go $(FILENAME)
 
 controller:
 	@mkdir -p app/controllers
-	@go run app/configs/command/main.go $(FILENAME)
+	@go run configs/command/main.go $(FILENAME)
 
 service:
 	@mkdir -p app/service
-	@go run app/configs/command/main.go $(FILENAME)
+	@go run configs/command/main.go $(FILENAME)
 
 repository:
 	@mkdir -p app/repositories
-	@go run app/configs/command/main.go $(FILENAME)
+	@go run configs/command/main.go $(FILENAME)
 
 dto:
 	@mkdir -p app/dtos
-	@go run app/configs/command/main.go $(FILENAME)
+	@go run configs/command/main.go $(FILENAME)
 
 all:
 	@mkdir -p app/models
@@ -41,4 +41,4 @@ all:
 	@mkdir -p app/repositories
 	@mkdir -p app/services
 	@mkdir -p app/controllers
-	@go run app/configs/command/main.go $(FILENAME)
+	@go run configs/command/main.go $(FILENAME)
