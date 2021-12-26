@@ -15,7 +15,11 @@ var db *gorm.DB = configs.SetupDatabaseConnection()
 func main() {
 	defer configs.CloseDatabaseConnection(db)
 	r := gin.Default()
-	r.Use(cors.Default())
+	r.Use(cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowCredentials: true,
+		Debug:            true,
+	}))
 
 	routers.ClientRoute(r)    //Added all client routes
 	routers.AuthRoute(r)      //Added all auth routes
