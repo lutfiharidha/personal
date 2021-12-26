@@ -5,7 +5,7 @@ import "github.com/gin-gonic/gin"
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
-		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000/")
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Accept")
 		c.Header("Access-Control-Allow-Methods", "*")
 
