@@ -6,6 +6,7 @@ import (
 	"personal/routers"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 	"gorm.io/gorm"
 )
 
@@ -13,8 +14,8 @@ var db *gorm.DB = configs.SetupDatabaseConnection()
 
 func main() {
 	defer configs.CloseDatabaseConnection(db)
-	r := gin.New()
-	r.Use(configs.CORSMiddleware())
+	r := gin.Default()
+	r.Use(cors.Default())
 
 	routers.ClientRoute(r)    //Added all client routes
 	routers.AuthRoute(r)      //Added all auth routes
