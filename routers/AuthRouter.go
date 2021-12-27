@@ -2,6 +2,7 @@ package routers
 
 import (
 	"personal/app/controllers"
+	"personal/app/middlewares"
 	"personal/app/repositories"
 	"personal/app/services"
 	"personal/configs"
@@ -24,7 +25,8 @@ func AuthRoute(route *gin.Engine) {
 
 	authRoutes := route.Group("api/v1/auth")
 	{
-		authRoutes.POST("/register", authController.Register)
 		authRoutes.POST("/login", authController.Login)
+		authRoutes.Use(middlewares.JwtAuthMiddleware())
+		authRoutes.POST("/register", authController.Register)
 	}
 }
