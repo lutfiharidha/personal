@@ -21,8 +21,8 @@ func SkillRoute(route *gin.Engine) {
 
 	skillRoutes := route.Group("api/v1/skill")
 	{
-		skillRoutes.Use(middlewares.JwtAuthMiddleware())
 		skillRoutes.GET("/", skillController.All)
+		skillRoutes.Use(middlewares.JwtAuthMiddleware())
 		skillRoutes.POST("/", skillController.Insert)
 		skillRoutes.DELETE("/:id", skillController.Delete)
 	}

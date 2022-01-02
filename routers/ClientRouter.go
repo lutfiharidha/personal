@@ -21,10 +21,10 @@ func ClientRoute(route *gin.Engine) {
 
 	clientRoutes := route.Group("api/v1/client")
 	{
-		clientRoutes.Use(middlewares.JwtAuthMiddleware())
 		clientRoutes.GET("/", clientController.All)
-		clientRoutes.POST("/", clientController.Insert)
 		clientRoutes.GET("/:id", clientController.FindByID)
+		clientRoutes.Use(middlewares.JwtAuthMiddleware())
+		clientRoutes.POST("/", clientController.Insert)
 		clientRoutes.PUT("/:id", clientController.Update)
 		clientRoutes.DELETE("/:id", clientController.Delete)
 		clientRoutes.GET("/deleted", clientController.Deleted)

@@ -21,10 +21,10 @@ func ContentRoute(route *gin.Engine) {
 
 	contentRoutes := route.Group("api/v1/content")
 	{
-		contentRoutes.Use(middlewares.JwtAuthMiddleware())
 		contentRoutes.GET("/", contentController.All)
-		contentRoutes.POST("/", contentController.Insert)
 		contentRoutes.GET("/:id", contentController.FindByID)
+		contentRoutes.Use(middlewares.JwtAuthMiddleware())
+		contentRoutes.POST("/", contentController.Insert)
 		contentRoutes.PUT("/:id", contentController.Update)
 		contentRoutes.DELETE("/:id", contentController.Delete)
 	}

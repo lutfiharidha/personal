@@ -21,10 +21,10 @@ func PortfolioRoute(route *gin.Engine) {
 
 	portfolioRoutes := route.Group("api/v1/portfolio")
 	{
-		portfolioRoutes.Use(middlewares.JwtAuthMiddleware())
 		portfolioRoutes.GET("/", portfolioController.All)
-		portfolioRoutes.POST("/", portfolioController.Insert)
 		portfolioRoutes.GET("/:id", portfolioController.FindByID)
+		portfolioRoutes.Use(middlewares.JwtAuthMiddleware())
+		portfolioRoutes.POST("/", portfolioController.Insert)
 		portfolioRoutes.PUT("/:id", portfolioController.Update)
 		portfolioRoutes.DELETE("/:id", portfolioController.Delete)
 		portfolioRoutes.GET("/deleted", portfolioController.Deleted)
