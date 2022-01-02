@@ -20,7 +20,7 @@ func main() {
 		AllowCredentials: true,
 		Debug:            true,
 	}))
-
+	r.Static("/public", "./public")
 	routers.ClientRoute(r)    //Added all client routes
 	routers.AuthRoute(r)      //Added all auth routes
 	routers.ProfileRoute(r)   //Added all profile routes
