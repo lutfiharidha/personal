@@ -20,8 +20,8 @@ func main() {
 		AllowCredentials: true,
 		Debug:            true,
 	}))
-	r.Static("/image/client", "./public/img/client")
-	r.Static("/image/portfolio", "./public/img/portfolio")
+	r.Static("/image/client", "/root/Go/src/personal/public/img/client")
+	r.Static("/image/portfolio", "/root/Go/src/personal/public/img/portfolio")
 	routers.ClientRoute(r)    //Added all client routes
 	routers.AuthRoute(r)      //Added all auth routes
 	routers.ProfileRoute(r)   //Added all profile routes
