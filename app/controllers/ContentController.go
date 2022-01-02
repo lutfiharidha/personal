@@ -48,7 +48,7 @@ func (c *contentController) FindByID(context *gin.Context) {
 
 func (c *contentController) Insert(context *gin.Context) {
 	var contentCreateDTO dtos.ContentCreateDTO
-	imageName := helpers.FileUpload(context, "public/content/")
+	imageName := helpers.FileUpload(context, "public/content/", "content_image")
 	contentCreateDTO.ContentImage = imageName
 	errDTO := context.ShouldBind(&contentCreateDTO)
 	if errDTO != nil {
@@ -73,8 +73,8 @@ func (c *contentController) Update(context *gin.Context) {
 		res := helpers.BuildErrorResponse("Data not found", "No data with given id", helpers.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		if context.Param("image") != "" {
-			imageName := helpers.FileUpload(context, "public/content/")
+		if context.Param("content_image") != "" {
+			imageName := helpers.FileUpload(context, "public/content/", "content_image")
 			contentUpdateDTO.ContentImage = imageName
 		} else {
 			contentUpdateDTO.ContentImage = content.ContentImage

@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func FileUpload(c *gin.Context, path string) string {
+func FileUpload(c *gin.Context, path string, formFile string) string {
 
 	c.Request.ParseMultipartForm(32 << 20)
 
@@ -26,10 +26,11 @@ func FileUpload(c *gin.Context, path string) string {
 
 	// return handler
 
-	file, err := c.FormFile("image")
+	file, err := c.FormFile(formFile)
 
 	// The file cannot be received.
 	if err != nil {
+
 		c.AbortWithStatusJSON(http.StatusBadRequest, err.Error())
 	}
 
@@ -39,6 +40,7 @@ func FileUpload(c *gin.Context, path string) string {
 	newFileName := uuid.New().String() + extension
 
 	// The file is received, so let's save it
+
 	if err := c.SaveUploadedFile(file, path+newFileName); err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 	}

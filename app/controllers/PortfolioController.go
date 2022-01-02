@@ -51,7 +51,7 @@ func (c *portfolioController) FindByID(context *gin.Context) {
 
 func (c *portfolioController) Insert(context *gin.Context) {
 	var portfolioCreateDTO dtos.PortfolioCreateDTO
-	imageName := helpers.FileUpload(context, "public/portfolio/")
+	imageName := helpers.FileUpload(context, "public/img/portfolio/", "portfolio_image")
 	portfolioCreateDTO.PortfolioImage = imageName
 	context.ShouldBind(&portfolioCreateDTO)
 
@@ -69,8 +69,8 @@ func (c *portfolioController) Update(context *gin.Context) {
 		res := helpers.BuildErrorResponse("Data not found", "No data with given id", helpers.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		if context.Param("image") != "" {
-			imageName := helpers.FileUpload(context, "public/portfolio/")
+		if context.Param("portfolio_image") != "" {
+			imageName := helpers.FileUpload(context, "public/img/portfolio/", "portfolio_image")
 			portfolioUpdateDTO.PortfolioImage = imageName
 		} else {
 			portfolioUpdateDTO.PortfolioImage = portfolio.PortfolioImage

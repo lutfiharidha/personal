@@ -51,7 +51,7 @@ func (c *clientController) FindByID(context *gin.Context) {
 
 func (c *clientController) Insert(context *gin.Context) {
 	var clientCreateDTO dtos.ClientCreateDTO
-	imageName := helpers.FileUpload(context, "public/client/")
+	imageName := helpers.FileUpload(context, "public/img/client/", "client_image")
 	clientCreateDTO.ClientImage = imageName
 	errDTO := context.ShouldBind(&clientCreateDTO)
 	if errDTO != nil {
@@ -76,8 +76,8 @@ func (c *clientController) Update(context *gin.Context) {
 		res := helpers.BuildErrorResponse("Data not found", "No data with given id", helpers.EmptyObj{})
 		context.JSON(http.StatusNotFound, res)
 	} else {
-		if context.Param("image") != "" {
-			imageName := helpers.FileUpload(context, "public/client/")
+		if context.Param("client_image") != "" {
+			imageName := helpers.FileUpload(context, "public/img/client/", "client_image")
 			clientUpdateDTO.ClientImage = imageName
 		} else {
 			clientUpdateDTO.ClientImage = client.ClientImage
