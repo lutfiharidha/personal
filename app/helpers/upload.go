@@ -1,7 +1,9 @@
 package helpers
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 	"path/filepath"
 
 	"github.com/gin-gonic/gin"
@@ -40,11 +42,17 @@ func FileUpload(c *gin.Context, path string, formFile string) string {
 	newFileName := uuid.New().String() + extension
 
 	// The file is received, so let's save it
-
-	if err := c.SaveUploadedFile(file, path+newFileName); err != nil {
+	_, err = os.Stat(path)
+	if os.IsNotExist(err) {
+		os.Mkdir(path, 0755)
+	}
+	mydir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+	if err := c.SaveUploadedFile(file, mydir+path+newFileName); err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 	}
-
 	return newFileName
 
 }

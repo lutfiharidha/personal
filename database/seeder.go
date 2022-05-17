@@ -4,6 +4,17 @@ import (
 	"personal/app/models"
 )
 
+func AuthSeeder() {
+	db.Create(&models.Auth{
+		Email:    "me@lutfi.dev",
+		Username: "admin",
+		Password: "lutfidev@2022",
+		Name:     "Lutfi",
+		Image:    "admin.jpg",
+	})
+
+}
+
 func ClientSeeder() {
 	db.Create(&models.Client{
 		ClientName:  "Lorem Ipsum",
@@ -16,5 +27,6 @@ func ClientSeeder() {
 }
 
 func InitialDBSeeder() {
+	AuthSeeder()
 	ClientSeeder()
 }

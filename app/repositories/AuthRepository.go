@@ -25,8 +25,8 @@ func NewAuthRepository(dbConn *gorm.DB) AuthRepository {
 }
 
 func (db *authConnection) RegisterAuth(auth models.Auth) models.Auth {
-	db.connection.Create(&auth)
-	db.connection.Find(&auth)
+	db.connection.Debug().Create(&auth)
+	db.connection.Debug().Find(&auth)
 	return auth
 }
 
@@ -40,7 +40,7 @@ func (db *authConnection) LoginCheck(username string, password string) (string, 
 
 	u := models.Auth{}
 
-	err = db.connection.Model(models.Auth{}).Where("email = ?", username).Or("username = ?", username).Take(&u).Error
+	err = db.connection.Model(models.Auth{}).Debug().Where("email = ?", username).Or("username = ?", username).Take(&u).Error
 
 	if err != nil {
 		return "", err
